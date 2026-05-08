@@ -466,13 +466,13 @@ async function handleSubmit() {
   const isCorrect = answer === ANSWER;
   const timestamp = new Date().toLocaleString('en-GB', { timeZone: 'Africa/Blantyre' });
 
-  if (FORMSPREE_ID === 'REPLACE_WITH_YOUR_FORMSPREE_ID') {
+  if (FORMSPREE_ID === 'xzdoanlr') {
     showInfo();
     return;
   }
 
   try {
-    const res = await fetch(`https://formspree.io/f/${FORMSPREE_ID}`, {
+    const res = await fetch(`https://formspree.io/f/${xzdoanlr}`, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
       body: JSON.stringify({
