@@ -1,0 +1,536 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<!--
+=======================================================
+  TNM ROUTER BRAIN TEASER CHALLENGE
+  Developed for team use — deploy to GitHub Pages
+=======================================================
+
+  SETUP INSTRUCTIONS (takes 3 minutes):
+  -------------------------------------------------------
+  1. Go to https://formspree.io and sign up FREE
+  2. Click "New Form" → name it "TNM Router Challenge"
+  3. Copy your form ID (the last part of the endpoint,
+     e.g. if endpoint is formspree.io/f/xpwzkabc
+     your ID is: xpwzkabc)
+  4. Replace REPLACE_WITH_YOUR_FORMSPREE_ID below
+  5. Save and push to GitHub Pages — you're done!
+
+  Every submission will:
+  - Send you an email with name, phone & answer
+  - Appear in your Formspree dashboard at formspree.io
+  - Be timestamped so you know who was FIRST
+
+  ANSWER KEY (keep this secret!):
+  Riddle answers: Watch, Iron, Needle, Nail, Egg, River
+  First letters spell: W-I-N-N-E-R = WINNER
+=======================================================
+-->
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>TNM Router Challenge 🏆</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Courier+Prime:wght@400;700&family=Playfair+Display:wght@700;900&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #07080d;
+    --surface: #0f1118;
+    --surface2: #161922;
+    --border: rgba(255,255,255,0.07);
+    --border2: rgba(255,255,255,0.14);
+    --gold: #f0a500;
+    --gold-dim: rgba(240,165,0,0.15);
+    --gold-glow: rgba(240,165,0,0.08);
+    --text: #e8e8e0;
+    --text-dim: #8a8a80;
+    --text-faint: #4a4a44;
+    --green: #2ecc71;
+    --green-bg: rgba(46,204,113,0.12);
+    --red: #e74c3c;
+    --red-bg: rgba(231,76,60,0.12);
+    --radius: 10px;
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    background: var(--bg);
+    color: var(--text);
+    font-family: 'Inter', sans-serif;
+    min-height: 100vh;
+    overflow-x: hidden;
+  }
+
+  /* background grid */
+  body::before {
+    content: '';
+    position: fixed;
+    inset: 0;
+    background-image:
+      linear-gradient(rgba(240,165,0,0.03) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(240,165,0,0.03) 1px, transparent 1px);
+    background-size: 40px 40px;
+    pointer-events: none;
+    z-index: 0;
+  }
+
+  .wrapper {
+    max-width: 600px;
+    margin: 0 auto;
+    padding: 2rem 1.25rem 4rem;
+    position: relative;
+    z-index: 1;
+  }
+
+  /* Header */
+  .header {
+    text-align: center;
+    padding: 2rem 0 2.5rem;
+  }
+  .prize-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    background: var(--gold-dim);
+    border: 1px solid rgba(240,165,0,0.3);
+    border-radius: 20px;
+    padding: 5px 14px;
+    font-size: 12px;
+    font-weight: 600;
+    color: var(--gold);
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+    margin-bottom: 20px;
+  }
+  .header h1 {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(28px, 7vw, 42px);
+    font-weight: 900;
+    color: #fff;
+    line-height: 1.15;
+    margin-bottom: 12px;
+  }
+  .header h1 span { color: var(--gold); }
+  .header p {
+    font-size: 14px;
+    color: var(--text-dim);
+    line-height: 1.7;
+    max-width: 400px;
+    margin: 0 auto;
+  }
+
+  /* Card */
+  .card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    padding: 1.5rem;
+    margin-bottom: 1rem;
+  }
+  .card-title {
+    font-family: 'Courier Prime', monospace;
+    font-size: 11px;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--gold);
+    margin-bottom: 16px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+  .card-title::after {
+    content: '';
+    flex: 1;
+    height: 1px;
+    background: var(--border2);
+  }
+
+  /* Riddle list */
+  .riddle {
+    padding: 14px 0;
+    border-bottom: 1px solid var(--border);
+    display: flex;
+    gap: 14px;
+    align-items: flex-start;
+  }
+  .riddle:last-child { border-bottom: none; padding-bottom: 0; }
+  .riddle-num {
+    font-family: 'Courier Prime', monospace;
+    font-size: 13px;
+    color: var(--gold);
+    min-width: 22px;
+    padding-top: 2px;
+  }
+  .riddle-text {
+    font-size: 14px;
+    color: var(--text);
+    line-height: 1.75;
+  }
+
+  /* Cipher hint */
+  .hint {
+    margin-top: 16px;
+    padding: 12px 16px;
+    background: var(--gold-glow);
+    border: 1px solid rgba(240,165,0,0.15);
+    border-radius: 8px;
+    font-family: 'Courier Prime', monospace;
+    font-size: 13px;
+    color: var(--text-dim);
+    line-height: 1.6;
+  }
+
+  /* Form */
+  .field { margin-bottom: 14px; }
+  .field label {
+    display: block;
+    font-size: 12px;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    color: var(--text-dim);
+    margin-bottom: 6px;
+    font-weight: 500;
+  }
+  .field input {
+    width: 100%;
+    background: var(--surface2);
+    border: 1px solid var(--border2);
+    border-radius: 8px;
+    padding: 11px 14px;
+    font-size: 15px;
+    color: var(--text);
+    font-family: 'Inter', sans-serif;
+    outline: none;
+    transition: border-color 0.2s;
+    -webkit-appearance: none;
+  }
+  .field input:focus {
+    border-color: var(--gold);
+  }
+  .field input::placeholder { color: var(--text-faint); }
+  .field input#answer {
+    font-family: 'Courier Prime', monospace;
+    font-size: 18px;
+    letter-spacing: 4px;
+    text-transform: uppercase;
+  }
+
+  /* Submit button */
+  .submit-btn {
+    width: 100%;
+    background: var(--gold);
+    color: #000;
+    border: none;
+    border-radius: 8px;
+    padding: 13px;
+    font-size: 15px;
+    font-weight: 700;
+    cursor: pointer;
+    font-family: 'Courier Prime', monospace;
+    letter-spacing: 0.05em;
+    transition: opacity 0.15s, transform 0.1s;
+    margin-top: 6px;
+  }
+  .submit-btn:hover { opacity: 0.9; }
+  .submit-btn:active { transform: scale(0.98); }
+  .submit-btn:disabled { opacity: 0.4; cursor: not-allowed; }
+
+  /* Alert */
+  .alert {
+    border-radius: 8px;
+    padding: 11px 14px;
+    font-size: 13px;
+    margin-top: 12px;
+    display: none;
+    line-height: 1.5;
+  }
+  .alert.error { background: var(--red-bg); color: var(--red); border: 1px solid rgba(231,76,60,0.2); }
+  .alert.info { background: rgba(255,255,255,0.05); color: var(--text-dim); border: 1px solid var(--border); }
+
+  /* Success screen */
+  #success-screen {
+    display: none;
+    text-align: center;
+    padding: 3rem 1rem;
+  }
+  .success-icon {
+    font-size: 56px;
+    margin-bottom: 16px;
+    animation: pop 0.4s cubic-bezier(0.175,0.885,0.32,1.275);
+  }
+  @keyframes pop {
+    0% { transform: scale(0); opacity: 0; }
+    100% { transform: scale(1); opacity: 1; }
+  }
+  #success-screen h2 {
+    font-family: 'Playfair Display', serif;
+    font-size: 26px;
+    font-weight: 700;
+    color: #fff;
+    margin-bottom: 10px;
+  }
+  #success-screen p {
+    font-size: 14px;
+    color: var(--text-dim);
+    line-height: 1.7;
+    max-width: 380px;
+    margin: 0 auto;
+  }
+
+  /* Footer link */
+  .footer-link {
+    text-align: center;
+    margin-top: 2rem;
+    padding-top: 1.5rem;
+    border-top: 1px solid var(--border);
+  }
+  .footer-link button {
+    background: none;
+    border: none;
+    color: var(--text-faint);
+    font-size: 11px;
+    cursor: pointer;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    font-family: 'Courier Prime', monospace;
+    padding: 6px 10px;
+  }
+  .footer-link button:hover { color: var(--text-dim); }
+
+  /* Decorative top bar */
+  .topbar {
+    height: 3px;
+    background: linear-gradient(90deg, transparent, var(--gold), transparent);
+    margin-bottom: 0;
+  }
+
+  /* Pulse animation on the badge */
+  .org-name {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(18px, 5vw, 26px);
+    font-weight: 900;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--gold);
+    margin-bottom: 18px;
+    display: block;
+  }
+  .org-name::before,
+  .org-name::after {
+    content: '—';
+    color: rgba(240,165,0,0.4);
+    margin: 0 10px;
+    font-weight: 400;
+  }
+
+  /* Pulse animation on the badge */
+  @keyframes pulse-border {
+    0%, 100% { box-shadow: 0 0 0 0 rgba(240,165,0,0.3); }
+    50% { box-shadow: 0 0 0 4px rgba(240,165,0,0.0); }
+  }
+  .prize-badge { animation: pulse-border 2.5s infinite; }
+
+  /* Responsive */
+  @media (max-width: 480px) {
+    .wrapper { padding: 1.5rem 1rem 3rem; }
+    .card { padding: 1.25rem; }
+  }
+</style>
+</head>
+<body>
+
+<div class="topbar"></div>
+
+<div class="wrapper">
+
+  <!-- Header -->
+  <div class="header">
+    <div class="org-name">NYASA NIGHTS THEATOR</div>
+    <div class="prize-badge">🏆 Prize: TNM Router</div>
+    <h1>The <span>Hidden Word</span><br>Challenge</h1>
+    <p>Six riddles. One secret. The first to crack the code walks away with a brand new TNM Router.</p>
+  </div>
+
+  <!-- Game section -->
+  <div id="game-section">
+
+    <!-- Riddles card -->
+    <div class="card">
+      <div class="card-title">— The six riddles</div>
+
+      <div class="riddle">
+        <span class="riddle-num">01</span>
+        <span class="riddle-text">I have hands but I cannot clap. I have a face but no eyes. I tell you something important every day, yet I never speak a word. What am I?</span>
+      </div>
+      <div class="riddle">
+        <span class="riddle-num">02</span>
+        <span class="riddle-text">I get hot when I am working, and I press hard to make things smooth. You will find me in the bedroom on a busy morning. What am I?</span>
+      </div>
+      <div class="riddle">
+        <span class="riddle-num">03</span>
+        <span class="riddle-text">I have an eye, yet I cannot see. Thread me carefully and I will help you mend what is broken. What am I?</span>
+      </div>
+      <div class="riddle">
+        <span class="riddle-num">04</span>
+        <span class="riddle-text">Hit my head and I go deeper into the wall. I hold things together without saying a single word. What am I?</span>
+      </div>
+      <div class="riddle">
+        <span class="riddle-num">05</span>
+        <span class="riddle-text">I have a shell but I am not a snail. I came before the chicken, yet I sit quietly on your breakfast plate. What am I?</span>
+      </div>
+      <div class="riddle">
+        <span class="riddle-num">06</span>
+        <span class="riddle-text">I run without legs, I have a mouth but never eat, and I keep a bank but hold no money. What am I?</span>
+      </div>
+
+      <div class="hint">
+        💡 Solve all six riddles — then ask yourself: what do all your answers have in common? The secret is hiding in plain sight.
+      </div>
+    </div>
+
+    <!-- Submission form card -->
+    <div class="card" id="form-card">
+      <div class="card-title">— Your submission</div>
+
+      <div class="field">
+        <label>Full name</label>
+        <input type="text" id="f-name" placeholder="e.g. Chisomo Banda" autocomplete="name">
+      </div>
+      <div class="field">
+        <label>Phone number</label>
+        <input type="tel" id="f-phone" placeholder="e.g. 0881234567" autocomplete="tel">
+      </div>
+      <div class="field">
+        <label>The hidden word</label>
+        <input type="text" id="answer" placeholder="??????" autocomplete="off" maxlength="20">
+      </div>
+
+      <div class="alert error" id="err-msg"></div>
+      <div class="alert info" id="info-msg"></div>
+
+      <button class="submit-btn" id="submit-btn" onclick="handleSubmit()">
+        ▶ SUBMIT MY ANSWER
+      </button>
+    </div>
+
+  </div>
+
+  <!-- Success screen (shown after submit) -->
+  <div id="success-screen">
+    <div class="success-icon" id="s-icon">📬</div>
+    <h2 id="s-heading">Answer Recorded!</h2>
+    <p id="s-msg">Your submission has been logged. The organiser will announce the winner very soon. Good luck!</p>
+  </div>
+
+  <!-- Organiser link -->
+  <div class="footer-link">
+    <button onclick="location.href='#organiser'" id="org-link">▸ Organiser access</button>
+  </div>
+
+</div>
+
+<!-- Organiser modal overlay (accessed via URL hash) -->
+<div id="org-overlay" style="display:none; position:fixed; inset:0; background:rgba(0,0,0,0.85); z-index:100; display:none; align-items:center; justify-content:center; padding:1.5rem;">
+  <div style="background:#0f1118; border:1px solid rgba(240,165,0,0.3); border-radius:12px; padding:2rem; max-width:400px; width:100%;">
+    <div style="font-family:'Courier Prime',monospace; font-size:11px; letter-spacing:0.1em; color:#f0a500; text-transform:uppercase; margin-bottom:14px;">Organiser access</div>
+    <p style="font-size:13px; color:#8a8a80; margin-bottom:16px; line-height:1.6;">This game uses Formspree to collect submissions. Log in to your Formspree dashboard to see all entries with timestamps.</p>
+    <a href="https://formspree.io/login" target="_blank" style="display:block; text-align:center; background:#f0a500; color:#000; border-radius:8px; padding:11px; font-weight:700; font-family:'Courier Prime',monospace; font-size:14px; text-decoration:none; margin-bottom:12px;">Open Formspree Dashboard →</a>
+    <p style="font-size:11px; color:#4a4a44; text-align:center; font-family:'Courier Prime',monospace;">Answer key: WINNER &nbsp;|&nbsp; W·I·N·N·E·R</p>
+    <button onclick="closeOrg()" style="width:100%; background:none; border:1px solid rgba(255,255,255,0.08); border-radius:8px; color:#8a8a80; padding:9px; font-size:13px; cursor:pointer; margin-top:10px;">Close</button>
+  </div>
+</div>
+
+<script>
+const FORMSPREE_ID = 'REPLACE_WITH_YOUR_FORMSPREE_ID';
+const ANSWER = 'WINNER';
+
+async function handleSubmit() {
+  const name   = document.getElementById('f-name').value.trim();
+  const phone  = document.getElementById('f-phone').value.trim();
+  const answer = document.getElementById('answer').value.trim().toUpperCase();
+  const errEl  = document.getElementById('err-msg');
+  const infoEl = document.getElementById('info-msg');
+
+  errEl.style.display  = 'none';
+  infoEl.style.display = 'none';
+
+  if (!name)   return showErr('Please enter your full name.');
+  if (!phone)  return showErr('Please enter your phone number.');
+  if (!answer) return showErr('Please enter the hidden word.');
+
+  const btn = document.getElementById('submit-btn');
+  btn.disabled = true;
+  btn.textContent = '⏳ Submitting...';
+
+  const isCorrect = answer === ANSWER;
+  const timestamp = new Date().toLocaleString('en-GB', { timeZone: 'Africa/Blantyre' });
+
+  if (FORMSPREE_ID === 'REPLACE_WITH_YOUR_FORMSPREE_ID') {
+    showInfo();
+    return;
+  }
+
+  try {
+    const res = await fetch(`https://formspree.io/f/${FORMSPREE_ID}`, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
+      body: JSON.stringify({
+        'Full Name': name,
+        'Phone Number': phone,
+        'Answer': answer,
+        'Correct': isCorrect ? 'YES ✓' : 'NO ✗',
+        'Time (Blantyre)': timestamp
+      })
+    });
+
+    if (res.ok) {
+      showInfo();
+    } else {
+      btn.disabled = false;
+      btn.textContent = '▶ SUBMIT MY ANSWER';
+      showErr('Submission failed. Please check your connection and try again.');
+    }
+  } catch(e) {
+    btn.disabled = false;
+    btn.textContent = '▶ SUBMIT MY ANSWER';
+    showErr('No internet connection. Please try again.');
+  }
+
+  function showInfo() {
+    document.getElementById('game-section').style.display = 'none';
+    const ss = document.getElementById('success-screen');
+    ss.style.display = 'block';
+    if (isCorrect) {
+      document.getElementById('s-icon').textContent = '🎉';
+      document.getElementById('s-heading').textContent = "You cracked it!";
+      document.getElementById('s-msg').textContent = "Brilliant! Your answer and contact details have been submitted. The organiser will be in touch if you are the fastest correct entry. Fingers crossed!";
+    } else {
+      document.getElementById('s-icon').textContent = '🤔';
+      document.getElementById('s-heading').textContent = "Submitted!";
+      document.getElementById('s-msg').textContent = `Your answer "${answer}" has been logged. Not quite right though — go back and think again. The riddles hold the clue!`;
+    }
+  }
+}
+
+function showErr(msg) {
+  const el = document.getElementById('err-msg');
+  el.textContent = msg;
+  el.style.display = 'block';
+}
+
+window.addEventListener('hashchange', handleHash);
+window.addEventListener('load', handleHash);
+function handleHash() {
+  if (location.hash === '#organiser') {
+    document.getElementById('org-overlay').style.display = 'flex';
+  }
+}
+function closeOrg() {
+  document.getElementById('org-overlay').style.display = 'none';
+  history.pushState('', document.title, window.location.pathname);
+}
+</script>
+
+</body>
+</html>
