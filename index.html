@@ -1,32 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<!--
-=======================================================
-  TNM ROUTER BRAIN TEASER CHALLENGE
-  Developed for team use — deploy to GitHub Pages
-=======================================================
 
-  SETUP INSTRUCTIONS (takes 3 minutes):
-  -------------------------------------------------------
-  1. Go to https://formspree.io and sign up FREE
-  2. Click "New Form" → name it "TNM Router Challenge"
-  3. Copy your form ID (the last part of the endpoint,
-     e.g. if endpoint is formspree.io/f/xpwzkabc
-     your ID is: xpwzkabc)
-  4. Replace REPLACE_WITH_YOUR_FORMSPREE_ID below
-  5. Save and push to GitHub Pages — you're done!
-
-  Every submission will:
-  - Send you an email with name, phone & answer
-  - Appear in your Formspree dashboard at formspree.io
-  - Be timestamped so you know who was FIRST
-
-  ANSWER KEY (keep this secret!):
-  Riddle answers: Watch, Iron, Needle, Nail, Egg, River
-  First letters spell: W-I-N-N-E-R = WINNER
-=======================================================
--->
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>TNM Router Challenge 🏆</title>
@@ -442,7 +417,9 @@
 </div>
 
 <script>
-const FORMSPREE_ID = 'xzdoanlr';
+// ▼▼▼ ONLY CHANGE THIS ONE LINE — paste your Formspree ID between the quotes ▼▼▼
+const FORMSPREE_ID = 'PASTE_YOUR_ID_HERE';
+// ▲▲▲ EXAMPLE: if your Formspree link is formspree.io/f/xpwzkabc → type xpwzkabc ▲▲▲
 const ANSWER = 'WINNER';
 
 async function handleSubmit() {
@@ -472,7 +449,7 @@ async function handleSubmit() {
   }
 
   try {
-    const res = await fetch(`https://formspree.io/f/${xzdoanlr}`, {
+    const res = await fetch(`https://formspree.io/f/${FORMSPREE_ID}`, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
       body: JSON.stringify({
